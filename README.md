@@ -1,4 +1,4 @@
-# Project Specification for Halal Gamble {#project-specification-for-halal-gamble .unnumbered}
+# Project Specification for Halal Gamble
 
 Tashrique Ahmed, Elyes Laalai
 
