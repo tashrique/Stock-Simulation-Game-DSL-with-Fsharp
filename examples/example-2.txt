@@ -1,0 +1,9 @@
+start
+addcapital(100)
+buy(TSLA, 25)
+next
+next
+next
+sell(TSLA, 25)
+output(bargraph)
+exit

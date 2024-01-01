@@ -1,0 +1,20 @@
+start
+addcapital(1000)
+buy(GOLD, 25)
+buy(SLVR, 25)
+buy(TSLA, 25)
+next
+buy(GOLD, 25)
+sell(SLVR, 25)
+buy(TSLA, 25)
+next
+buy(GOLD, 25)
+buy(SLVR, 25)
+sell(TSLA, 25)
+next
+sell(GOLD, 75)
+sell(SLVR, 25)
+sell(TSLA, 25)
+output(portfolio)
+output(timeseries)
+exit

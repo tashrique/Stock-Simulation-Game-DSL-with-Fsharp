@@ -1,0 +1,413 @@
+\documentclass[10pt]{article}
+
+% Lines beginning with the percent sign are comments
+% This file has been commented to help you understand more about LaTeX
+
+% DO NOT EDIT THE LINES BETWEEN THE TWO LONG HORIZONTAL LINES
+
+%---------------------------------------------------------------------------------------------------------
+
+% Packages add extra functionality.
+\usepackage{times,graphicx,epstopdf,fancyhdr,amsfonts,amsthm,amsmath,algorithm,algorithmic,xspace,hyperref}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{sect sty}	%For centering section headings
+\usepackage{enumerate}	%Allows more labeling options for enumerate environments 
+\usepackage{epsfig}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+\usepackage{forest}
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+
+% This will set LaTeX to look for figures in the same directory as the .tex file
+\graphicspath{.} % The dot means current directory.
+
+\pagestyle{fancy}
+
+\lhead{Final Project}
+\rhead{\today}
+\lfoot{CSCI 334: Principles of Programming Languages}
+\cfoot{\thepage}
+\rfoot{Fall 2023}
+
+% Some commands for changing header and footer format
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headwidth}{\textwidth}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% These let you use common environments
+\newtheorem{claim}{Claim}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{observation}{Observation}
+\newtheorem{question}{Question}
+
+\setlength{\parindent}{0cm}
+
+
+%---------------------------------------------------------------------------------------------------------
+
+% DON'T CHANGE ANYTHING ABOVE HERE
+
+% Edit below as instructed
+
+\begin{document}
+  
+\section*{Project Specification for Halal Gamble}
+
+Tashrique Ahmed, Elyes Laalai
+
+\subsection{Introduction}
+
+Halal Gamble: The Stock Simulation Game, is a domain-specific programming language (DSL) created to simplify stock market investing. Designed with simplicity and user engagement in mind, it's the perfect starting point for beginners eager to learn and experiment with stock investments without any financial risk. As the complexity of existing tools increases, the need for accessible platforms like Halal Gamble becomes more apparent. This project targets people with different trading experiences and, most importantly, is open to all.
+\\ \\
+The core of Halal Gamble lies in its interactive simulation. Players embark on a journey starting in 2015, armed with historical data on different stocks from 2010 - 2020. The game challenges players to make informed decisions about buying or selling stocks based on this data, offering new prices each year up to 2020. Players have the freedom to trade or even skip a year's transaction. The real thrill comes at the game's conclusion, where players see the outcome of their decisions in terms of profit or loss. This experience is not just engaging, but also a valuable tool to gauge one's potential in real-world trading, had they invested actual capital in the past.
+
+\subsection{Design Principles}
+Halal Gamble prioritizes simplicity, clarity, and user engagement. The key features include:
+\begin{itemize}
+    \item Straightforward and intuitive syntax and semantics for easy comprehension
+    \item Efficient data structures and operations for optimal performance. No operations slower than O(n)
+    \item Ensured safety through robust error handling and parsing failure handling
+    \item Flexibility to choose between stocks and date ranges and customization portfolio management
+    \item Accessible learning through comprehensive game-play instructions
+    \item Type-insensitive, white space-insensitive and natural-language-like syntax
+    \item Features investment-specific functionalities and visualizations, simplifying complex financial concepts
+    \item Tailored for practical application through historical stock market data of 2010 - 2020
+\end{itemize}
+
+\subsection{Examples}
+
+\textbf{Sample Program 1}
+\begin{verbatim}
+dotnet run
+
+
+start
+addcapital(100)
+buy(TSLA, 25)
+next
+next
+next
+sell(TSLA, 25)
+output(bargraph)
+exit
+
+\end{verbatim}
+\pagebreak
+\textbf{Sample Program 2}
+\begin{verbatim}
+dotnet run
+
+
+start
+addcapital(1000)
+buy(GOLD, 25)
+next
+sell(GOLD, 25)
+buy(SLVR, 70)
+next
+sell(SLVR, 20)
+buy(SLVR, 50)
+next
+sell(SLVR,100)
+buy(GOLD,50)
+buy(GOLD, 50)
+output(bargraph)
+output(timeseries)
+output(portfolio)
+exit
+
+\end{verbatim}
+
+
+\textbf{Sample Program 3}
+\begin{verbatim}
+dotnet run
+
+start
+addcapital(1000)
+buy(GOLD, 25)
+buy(SLVR, 25)
+buy(TSLA, 25)
+next
+buy(GOLD, 25)
+sell(SLVR, 25)
+buy(TSLA, 25)
+next
+buy(GOLD, 25)
+buy(SLVR, 25)
+sell(TSLA, 25)
+next
+sell(GOLD, 75)
+sell(SLVR, 25)
+sell(TSLA, 25)
+output(portfolio)
+output(timeseries)
+exit
+
+\end{verbatim}
+
+\pagebreak
+\subsection{Language Concepts}
+
+The core concepts in this domain-specific language (DSL) are centered around very basic stock market investment operations like transactions, buy, sell, profit, capital etc. Users need to understand these basic investment terms and actions, as well as how to represent these in the DSL's syntax.
+\\\\
+\textbf{Primitives:}
+\begin{itemize}
+    \item \textbf{Stock Names:} These are primitives in the DSL, representing distinct investment assets like\verb|GOLD| or \verb|TSLA|.
+    \item \textbf{Numerical Values:} These include figures like adding capital and investment amounts. All transactions are done in USD.
+    \item \textbf{Action Keywords: }Words like 'Buy' and 'Sell' are primitives that represent fundamental operations in the language.
+\end{itemize}
+\textbf{Combining Forms:}
+\begin{itemize}
+    \item \textbf{Sequential Commands:} The combination of various commands (like buying and selling stocks, setting initial capital) in a sequence to form a coherent investment strategy.
+    \item \textbf{Investment Operations:} Constructs that combine primitives like stock names and numerical values to define a particular operation, e.g., \verb|buy(GOLD, 50)|.
+    \item \textbf{Control Structures: }Commands like \verb|next| or \verb|exit|, control the flow of the simulation, acting like control flow statements in conventional programming languages.
+    \item \textbf{Data Visualization Commands:} These combine various data points (such as percentages of investment in different assets) into a cohesive graphical representation, e.g., \verb|output(portfolio)|
+    \item \textbf{Portfolio Statements:} Combining different elements of the portfolio (like different stocks and their respective quantities) to generate a comprehensive statement or analysis.
+\end{itemize}
+
+
+\subsection{Formal Syntax}
+
+\textbf{BNF Grammar:}
+\begin{verbatim}
+    <stock> ::= GOLD | SLVR | TSLA
+    <transactionAmount> ::= <d><transactionAmount> | <d>
+    <d> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+    <command> ::= buy(<stock>, <transactionAmount>, <year>) | sell(<stock>, <transactionAmount>, <year>) | addcapital(<transactionAmount>, <year>)
+    
+    <line> ::= <command> | <output> 
+    <program> ::= <line> | <line><program>
+
+    <output> ::= output(<graph>)
+    <graph> ::= bargraph | timeseries | portfolio
+\end{verbatim}
+
+\textbf{Detailed Syntax of Halal Gamble:}
+
+\begin{itemize}
+    \item \textbf{Add Capital:} Defined using \verb|addcapital(amount)|. This command adds capital budget for the simulation. If you use this command multiple times, it will use the sum of all.
+        \begin{itemize}
+            \item Example: \verb|addcapital(100)| allocates a budget of 100 dollars. 
+        \end{itemize}
+    \item \textbf{Stock Transactions:} Executed with \verb|buy(stock, amount)| or \verb|sell(stock, amount)|, allowing users to purchase or sell stocks. If you buy/sell the same stock multiple times in a year, the program will use the total bought/sold amount as the transaction. You cannot make transactions unless you have added capital previously or in the current year. You cannot sell more than you buy. The BNF consists of a key <year> for all commands, but the user does not have to enter it manually; the program automatically infers the value during runtime.
+        \begin{itemize}
+            \item Example: \verb|buy(TSLA,20)| indicates buying 20 dollars of TSLA stock.
+            \item Example: \verb|sell(GOLD,20)| indicates selling 20 dollars of GOLD stock.
+        \end{itemize}
+    \item \textbf{Control Commands:} \verb|next|advances the simulation to the next timeframe, while \verb|exit| terminates the simulation. If \verb|next| is used until 2021, the game will exit automatically.
+    \item \textbf{Output Visualization:} Defined using \verb|output(type)| to display investment data graphically or in a statement, where type includes  \verb|bargraph, timeseries, and portfolio|. If no output is selected, the program will run as usual but will not generate any output.
+        \begin{itemize}
+            \item Example: \verb|output(timeseries)| creates a time series plot of the investment result.
+            \item Example: \verb|output(bargraph)| creates a bargraph of the investment result.
+            \item Example: \verb|output(portfolio)| generates a portfolio PDF of the investment outcomes.
+        \end{itemize}
+\end{itemize}
+
+
+\subsection{Semantics}
+
+\textbf{Primitive Kinds of Values:}
+\begin{itemize}
+    \item \textbf{Stocks:} Represented as strings (e.g., GOLD, SLVR, TSLA), these are fundamental assets in which users can invest.
+    \item \textbf{Numerical Values:}  Integers and floats are used for transaction amounts, dictating how much of a stock is bought or sold and the simulation's timeline.
+    \item \textbf{Years:} Integers representing the specific year of the stock market simulation, crucial for historical data reference.
+\end{itemize}
+
+\textbf{Actions and Compositional Elements:}
+\begin{itemize}
+    \item \textbf{Transactions (Buy/Sell):} These are the primary actions, combining stock names and numerical values. For instance, \verb|BuyCommand({stock: 'GOLD'; buy: 50; year: 2015})| represents buying \$50 worth of GOLD in 2015.
+    \item \textbf{Capital Addition:} Involves adding a specified capital amount to the user's portfolio, like \\
+    \verb|AddCapitalCommand({initial: 'INITIAL'; amount: 1000; year: 2015})|.
+    \item \textbf{Output Commands:} These commands generate different forms of output, such as bar graphs or portfolio summaries, based on the current state of the user's investments.
+\end{itemize}
+
+
+The AST (Abstract Syntax Tree) for this DSL will have several key components represented as algebraic data types:
+
+\begin{itemize}
+    \item \textbf{CommandNode:} This node is the primary action node in the AST. It encapsulates the three types of commands that can be performed in the language:
+    \begin{itemize}
+        \item \textbf{BuyCommand:} Represents a buying transaction. Contains fields for the stock being bought (stock), the amount to buy (buy), and the year of the transaction (year). For example:\\
+        \verb|BuyCommand({stock: "GOLD"; buy: 50.0; year: 2015})| \\
+        This command represents buying \$50.0 worth of GOLD stock in the year 2015.
+        \item \textbf{SellCommand:} Represents a selling transaction. Contains fields for the stock being sold (stock), the amount to sell (sell), and the year of the transaction (year). For example: \\
+        \verb|SellCommand({stock: "GOLD"; sell: 30.0; year: 2016})| \\
+        This command represents selling \$30.0 worth of GOLD stock in the year 2016.
+        \item \textbf{AddCapitalCommand:} Used for adding capital to the user's portfolio. Contains fields for specifying capital type (initial), the amount of capital being added (amount), and the year of the capital addition (year). For example: \\
+        \verb|AddCapitalCommand({initial: "INITIAL"; amount: 1000; year: 2015})| \\
+        This command adds \$1000 to the user's capital in the year 2015.
+
+    \end{itemize}
+    \item \textbf{OutputNode:} This node determines the type of output visualization that the program will produce based on the user's investment actions. For example: 
+    \verb|OutputNode(Portfolio)| \\    
+    An OutputNode can be one of the following types:
+    \begin{itemize}
+        \item \textbf{Bargraph:} Produces a bar graph visualization.
+        \item \textbf{Timeseries:} Generates a time series plot.
+        \item \textbf{Portfolio:} Creates a detailed view of the user's portfolio.
+    \end{itemize}
+\end{itemize}
+
+Note: The control flow is handled internally by the program in order to keep track of the years, thus, no control flow node is used in the AST; the year values get integrated into the CommandNodes.
+
+For a given program, the AST would be structured with a root node representing the entire program and child nodes for each command or output instruction. Each \verb|CommandNode| and \verb|OutputNode| would be processed sequentially, reflecting the order of commands in the user's program.
+
+For instance, an AST for sample program 1 with a series of buy and sell commands followed by a request for a portfolio output might look like this:
+\begin{verbatim}
+Program (Root)
+|-- CommandNode
+|   |-- AddCapitalCommand({initial: "INITIAL"; amount: 100; year: 2015})
+|-- CommandNode
+|   |-- BuyCommand
+|   |   |-- {stock: "TSLA"; buy: 25.0; year: 2015}
+|-- CommandNode
+|   |-- SellCommand
+|   |   |-- {stock: "TSLA"; sell: 25.0; year: 2015}
+|-- OutputNode
+|   |-- Bargraph
+\end{verbatim}
+
+
+AST for sample program 2 would look like -
+\begin{verbatim}
+Program (Root)
+|-- CommandNode
+|   |-- AddCapitalCommand({initial: "INITIAL"; amount: 1000; year: 2015})
+|-- CommandNode
+|   |-- BuyCommand({stock: "GOLD"; buy: 25.0; year: 2015})
+|-- CommandNode
+|   |-- SellCommand({stock: "GOLD"; sell: 25.0; year: 2015})
+|-- CommandNode
+|   |-- BuyCommand({stock: "SLVR"; buy: 70.0; year: 2015})
+|-- CommandNode
+|   |-- SellCommand({stock: "SLVR"; sell: 20.0; year: 2015})
+|-- CommandNode
+|   |-- BuyCommand({stock: "SLVR"; buy: 50.0; year: 2015})
+|-- CommandNode
+|   |-- SellCommand({stock: "SLVR"; sell: 100.0; year: 2015})
+|-- CommandNode
+|   |-- BuyCommand({stock: "GOLD"; buy: 50.0; year: 2015})
+|-- CommandNode
+|   |-- BuyCommand({stock: "GOLD"; buy: 50.0; year: 2015})
+|-- OutputNode
+|   |-- Bargraph
+|-- OutputNode
+|   |-- Timeseries
+|-- OutputNode
+|   |-- Portfolio
+\end{verbatim}
+
+
+AST for sample program 3 would look like -
+\begin{verbatim}
+Program (Root)
+|-- CommandNode
+|   |-- AddCapitalCommand({initial: "INITIAL"; amount: 1000; year: 2015})
+|-- CommandNode
+|   |-- BuyCommand({stock: "GOLD"; buy: 25.0; year: 2015})
+|-- CommandNode
+|   |-- BuyCommand({stock: "SLVR"; buy: 25.0; year: 2015})
+|-- CommandNode
+|   |-- BuyCommand({stock: "TSLA"; buy: 25.0; year: 2015})
+|-- CommandNode
+|   |-- BuyCommand({stock: "GOLD"; buy: 25.0; year: 2015})
+|-- CommandNode
+|   |-- SellCommand({stock: "SLVR"; sell: 25.0; year: 2015})
+|-- CommandNode
+|   |-- BuyCommand({stock: "TSLA"; buy: 25.0; year: 2015})
+|-- CommandNode
+|   |-- BuyCommand({stock: "GOLD"; buy: 25.0; year: 2015})
+|-- CommandNode
+|   |-- BuyCommand({stock: "SLVR"; buy: 25.0; year: 2015})
+|-- CommandNode
+|   |-- SellCommand({stock: "TSLA"; sell: 25.0; year: 2015})
+|-- CommandNode
+|   |-- SellCommand({stock: "GOLD"; sell: 75.0; year: 2015})
+|-- CommandNode
+|   |-- SellCommand({stock: "SLVR"; sell: 25.0; year: 2015})
+|-- CommandNode
+|   |-- SellCommand({stock: "TSLA"; sell: 25.0; year: 2015})
+|-- OutputNode
+|   |-- Portfolio
+|-- OutputNode
+|   |-- Timeseries
+
+\end{verbatim}
+
+
+\textbf{Program Evaluation}:
+
+\begin{itemize}
+    \item \textbf{Input Interpretation}
+    \begin{itemize}
+        \item \textbf{Textual Commands: }The program starts by reading textual commands, each representing an investment action (buy, sell, add capital) or a request for output (e.g., portfolio graph). When the program exits, all the capitalization and whitespace is removed and one large string is passed onto the Parser.
+        \item \textbf{Command Parsing:} Each line in the program is parsed into corresponding AST nodes. For instance, a \verb|buy(GOLD, 50)| command in 2017 is parsed into a BuyCommand node as \\ \verb|BuyCommand({stock: "GOLD"; buy: 50.0; year: 2017})|
+    \end{itemize}
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Sequential Evaluation}
+    \begin{itemize}
+        \item \textbf{Processing Order:} The evaluation follows the order of commands as they appear in the program. This sequential processing is crucial as each action influences the subsequent state of the investment portfolio.
+        \item \textbf{Capital Management:} The AddCapitalNode is processed first, setting the initial budget for stock transactions. If multiple capital additions are present, they cumulatively affect the total capital.
+    \end{itemize}
+\end{itemize}
+\pagebreak
+
+\begin{itemize}
+    \item \textbf{Transaction Handling}
+    \begin{itemize}
+        \item \textbf{Buy/Sell Execution:} Each BuyCommand or SellCommand node updates the portfolio. BuyCommand increases stock holdings in the portfolio, deducting the corresponding amount from available capital. SellCommand decreases holdings, adding proceeds to the capital based on the stock's value for that year (including profit/loss)
+        \item \textbf{Yearly Context:} Transactions occur within the context of their specified year, affecting the portfolio based on historical stock data for that year.
+        \item \textbf{Cumulative Effect:} Multiple transactions for the same stock in a single year are cumulative. For instance, buying and then selling the same stock within the same year affects the net holding.
+        \item \textbf{Capital Limitation:} Transactions are limited by available capital. Exceeding the capital results in an error.
+        \item \textbf{Selling Limit:} Users can't sell more than they hold. Attempting to do so triggers an error.
+    \end{itemize}
+\end{itemize}
+
+
+
+\begin{itemize}
+    \item \textbf{Output Generation}
+    \begin{itemize}
+        \item \textbf{Visualization:} Depending on the OutputNode (Bargraph, Timeseries, Portfolio), different visual representations are generated. The visualizations incorporate data from the entire duration of the simulation, reflecting the portfolio's evolution.
+        \item \textbf{Portfolio Summary:} The output includes a summary of gains or losses, highlighting the effectiveness of investment strategies. Users can view their portfolio's performance for each year, illustrating the impact of their decisions.
+    \end{itemize}
+\end{itemize}
+
+
+\textbf{Detailed Evaluation of Sample Program 1:}
+\begin{enumerate}
+    \item \textbf{Initial State:} The program starts with a default portfolio state of \$0
+    \item \textbf{Add Capital:} \verb|AddCapitalNode(100)| – Adds \$100 to the investment budget.
+    \item \textbf{First Transaction:} \verb|BuyCommand({stock: 'TSLA', buy: 25, year: 2015})| – Buys \$25 worth of TSLA in 2015.
+    \item \textbf{Year Progression:} \verb|next| – Moves the simulation to the next year.
+    \item \textbf{Selling Stocks:} S\verb|SellCommand({stock: 'TSLA', sell: 25, year: 2016})| – Sells \$25 worth of TSLA in 2016.
+    \item \textbf{Output:} \verb|OutputNode(BarGraph)| – Generates a bar graph
+    \item \textbf{Program Termination:} \verb|exit| – Ends the program and saves and displays a bargraph
+\end{enumerate}
+
+
+\subsection{Remaining Work}
+
+As the Halal Gamble project nears completion, there are several areas of potential enhancement and future work that could significantly elevate the project's capabilities and user experience:
+
+\begin{itemize}
+    \item Enhance reference documents for stock from year 2010 - 2016, include news links and details
+    \item Improve chart display functions to visualize more intuitive outputs
+    \item Meet with a Professor expert in Finance and Stock Market and talk about the variables and their calculations and what to output and what not to
+    \item Continuously optimize the language’s performance in terms of processing speed and memory usage.
+\end{itemize}
+
+
+
+
+
+% DO NOT DELETE ANYTHING BELOW THIS LINE
+\end{document}

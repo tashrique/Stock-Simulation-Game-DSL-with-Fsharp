@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Combinator.fs" />
+    <Compile Include="AST.fs" />
+    <Compile Include="Parser.fs" />
+    <Compile Include="Evaluator.fs" />
+    <Compile Include="Library.fs" />
+    <Compile Include="Chart.fs" />
+    <Compile Include="Math.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspose.PDF" Version="23.11.1" />
+    <PackageReference Include="PDFsharp" Version="6.0.0" />
+    <PackageReference Include="Plotly.NET" Version="4.2.0" />
+    <PackageReference Include="Deedle" Version="3.0.0" />
+    <PackageReference Include="Giraffe.ViewEngine" Version="1.4.0" />
+  </ItemGroup>
+
+
+
+</Project>

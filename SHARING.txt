@@ -1,0 +1,3 @@
+We are OK with sharing our project video and specification doc with future CSCI 334 students.
+
+We would prefer not to share the code with students.
